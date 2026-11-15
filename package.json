@@ -1,0 +1,19 @@
+
+{
+  "name": "todo-devops-api",
+  "version": "1.0.0",
+  "description": "Todo API for DevOps experiment",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node --test",
+    "build": "npm pack"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "supertest": "^7.1.1"
+  }
+}
