@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -7,14 +6,6 @@ pipeline {
     }
 
     stages {
-
-        stage('Checkout') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/YOUR_USERNAME/todo-devops-api.git'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 sh 'npm ci'
@@ -36,8 +27,7 @@ pipeline {
 
     post {
         success {
-            archiveArtifacts artifacts: '*.tgz',
-                fingerprint: true
+            archiveArtifacts artifacts: '*.tgz', fingerprint: true
         }
     }
 }
