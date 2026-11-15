@@ -1,0 +1,52 @@
+---
+
+- name: Create application directory
+  file:
+    path: "{{ app_directory }}"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0755'
+  become: yes
+
+- name: Copy application files
+  copy:
+    src: "{{ playbook_dir }}/../../{{ item }}"
+    dest: "{{ app_directory }}/{{ item }}"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0644'
+  loop:
+    - server.js
+    - package.json
+    - package-lock.json
+  become: yes
+  notify: Restart Todo API
+
+- name: Install application dependencies
+  command: npm ci
+  args:
+    chdir: "{{ app_directory }}"
+  become: yes
+  become_user: "{{ app_user }}"
+  notify: Restart Todo API
+
+- name: Install Todo API systemd service
+  template:
+    src: todo-api.service.j2
+    dest: /etc/systemd/system/todo-api.service
+    mode: '0644'
+  become: yes
+  notify:
+    - Reload systemd
+    - Restart Todo API
+
+- name: Enable and start Todo API
+  systemd:
+    name: todo-api
+    enabled: yes
+    state: started
+    daemon_reload: yes
+  become: yes
+
+# tasks file for todo_api

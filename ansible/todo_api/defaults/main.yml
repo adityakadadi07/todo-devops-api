@@ -1,0 +1,5 @@
+---
+app_name: todo-devops-api
+app_port: 3000
+app_directory: /opt/todo-devops-api
+app_user: ubuntu

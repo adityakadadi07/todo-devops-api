@@ -2,3 +2,5 @@ node_modules/
 *.tgz
 .env
 .DS_Store
+minikube-linux-amd64
+todo-devops-api-*/

@@ -1,0 +1,7 @@
+---
+- name: Deploy Todo API
+  hosts: webservers
+  become: yes
+
+  roles:
+    - todo_api

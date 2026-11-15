@@ -1,0 +1,12 @@
+---
+- name: Reload systemd
+  systemd:
+    daemon_reload: yes
+  become: yes
+
+- name: Restart Todo API
+  systemd:
+    name: todo-api
+    state: restarted
+  become: yes
+# handlers file for todo_api
